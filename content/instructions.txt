@@ -1,0 +1,8 @@
+No terminal:
+    pip -q install plotly --upgrade
+    pip -q install yellowbrick
+
+Configurações:
+    Configurações de → de arquivos... → Project your_project → Python Interpreter
+    em seguida, clique no botão na barra de ferramentas vertical à direita (veja a seta vermelha na imagem):
+
