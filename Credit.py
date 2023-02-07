@@ -12,7 +12,9 @@ base_credit = pd.read_csv('content/credit_data.csv')
 # 0 == pagou, 1 == não pagou
 
 # Correções
+# valores negativos
 base_credit.loc[base_credit['age'] < 0, 'age'] = base_credit['age'][base_credit['age'] > 0].mean()
+# valores nulos
 base_credit['age'].fillna(base_credit['age'].mean(), inplace=True)
 
 # Aula 16
