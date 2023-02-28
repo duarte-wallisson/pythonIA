@@ -1,3 +1,5 @@
+import pickle
+
 import pandas as pd
 import numpy as np
 import seaborn as sns
@@ -5,6 +7,7 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
 
 base_credit = pd.read_csv('content/credit_data.csv')
 
@@ -59,7 +62,7 @@ base_credit['age'].fillna(base_credit['age'].mean(), inplace=True)
 # print(base_credit.loc[pd.isnull(base_credit['age'])])
 # print(base_credit.loc[base_credit['clientid'].isin([29, 31, 32])])
 
-# # Aula 20
+# # Aula 20 - Alocação dos previsores e a classe
 # print(type(base_credit))
 # # -- Aloca os previsores, exceto o id
 X_credit = base_credit.iloc[:, 1:4].values
@@ -68,7 +71,7 @@ X_credit = base_credit.iloc[:, 1:4].values
 y_credit = base_credit.iloc[:, 4].values
 # print(type(y_credit))
 
-# Aula 21
+# Aula 21 - Escalonamento
 # print(X_credit)
 # print(X_credit[:, 0].min(), X_credit[:, 1].min(), X_credit[:, 2].min())
 # print(X_credit[:, 0].max(), X_credit[:, 1].max(), X_credit[:, 2].max())
@@ -80,3 +83,13 @@ X_credit = scaler_credit.fit_transform(X_credit)
 # print(X_credit[:, 0].min(), X_credit[:, 1].min(), X_credit[:, 2].min())
 # print(X_credit[:, 0].max(), X_credit[:, 1].max(), X_credit[:, 2].max())
 # print(X_credit)
+
+# Aula 28 e 29
+# random_state é necessário para manter os valores
+X_credit_treinamento, X_credit_teste, y_credit_treinamento, y_credit_teste = train_test_split(X_credit, y_credit,
+                                                                                              test_size=0.25,
+                                                                                              random_state=0)
+
+# Aula 30
+with open('content/credit.pkl', mode='wb') as f:
+    pickle.dump([X_credit_treinamento, y_credit_treinamento, X_credit_teste, y_credit_teste], f)
